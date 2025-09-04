@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -22,26 +22,30 @@ public class HabitEntryController {
     @Autowired
     private HabitEntryService habitEntryService;
     
+    private String getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null ? authentication.getName() : null;
+    }
+    
     @GetMapping("/habit/{habitId}")
-    public ResponseEntity<List<HabitEntryDTO>> getEntriesByHabitId(@PathVariable Long habitId, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<List<HabitEntryDTO>> getEntriesByHabitId(@PathVariable Long habitId) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         List<HabitEntryDTO> entries = habitEntryService.getEntriesByHabitId(habitId, userId);
         return ResponseEntity.ok(entries);
     }
     
     @GetMapping("/date/{date}")
     public ResponseEntity<List<HabitEntryDTO>> getEntriesByDate(
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         List<HabitEntryDTO> entries = habitEntryService.getEntriesByUserIdAndDate(userId, date);
         return ResponseEntity.ok(entries);
     }
@@ -49,13 +53,12 @@ public class HabitEntryController {
     @GetMapping("/range")
     public ResponseEntity<List<HabitEntryDTO>> getEntriesByDateRange(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         List<HabitEntryDTO> entries = habitEntryService.getEntriesByUserIdAndDateRange(userId, startDate, endDate);
         return ResponseEntity.ok(entries);
     }
@@ -63,13 +66,12 @@ public class HabitEntryController {
     @PostMapping("/habit/{habitId}")
     public ResponseEntity<HabitEntryDTO> createOrUpdateEntry(
             @PathVariable Long habitId,
-            @RequestBody HabitEntryDTO entryDTO,
-            @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+            @RequestBody HabitEntryDTO entryDTO) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         Optional<HabitEntryDTO> entry = habitEntryService.createOrUpdateEntry(habitId, entryDTO, userId);
         
         if (entry.isPresent()) {
@@ -80,12 +82,12 @@ public class HabitEntryController {
     }
     
     @DeleteMapping("/{entryId}")
-    public ResponseEntity<Void> deleteEntry(@PathVariable Long entryId, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<Void> deleteEntry(@PathVariable Long entryId) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         boolean deleted = habitEntryService.deleteEntry(entryId, userId);
         
         if (deleted) {
@@ -98,13 +100,12 @@ public class HabitEntryController {
     @GetMapping("/completed/count")
     public ResponseEntity<Long> getCompletedEntriesCount(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         Long count = habitEntryService.getCompletedEntriesCount(userId, startDate, endDate);
         return ResponseEntity.ok(count);
     }

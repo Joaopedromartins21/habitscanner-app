@@ -1,10 +1,11 @@
 # HabitScanner - Plataforma de Rastreamento de Hábitos
 
-Uma aplicação web completa para rastreamento e análise de hábitos, desenvolvida com Spring Boot (Java) no backend e React no frontend.
+Uma aplicação web completa para rastreamento e análise de hábitos, desenvolvida com Spring Boot 3 (Java 17) no backend e React no frontend, com autenticação OAuth gerenciada pelo frontend.
 
 ## 🚀 Funcionalidades
 
-- **Autenticação OAuth Google**: Login seguro usando conta Google
+- **Autenticação OAuth Google**: Login seguro gerenciado pelo frontend
+- **Arquitetura Moderna**: Spring Boot 3 + Java 17 + React 18
 - **Gerenciamento de Hábitos**: Criar, editar e excluir hábitos
 - **Rastreamento Diário**: Marcar hábitos como concluídos diariamente
 - **Estatísticas Detalhadas**: Visualizar progresso, streaks e taxas de conclusão
@@ -14,8 +15,8 @@ Uma aplicação web completa para rastreamento e análise de hábitos, desenvolv
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
-- **Spring Boot 2.7.18** (Java 11)
-- **Spring Security** com OAuth2
+- **Spring Boot 3.2.0** (Java 17)
+- **Spring Security 6** com validação de token
 - **Spring Data JPA** para persistência
 - **H2 Database** (desenvolvimento)
 - **Maven** para gerenciamento de dependências
@@ -25,11 +26,12 @@ Uma aplicação web completa para rastreamento e análise de hábitos, desenvolv
 - **Material-UI (MUI)** para componentes
 - **React Router** para navegação
 - **Axios** para requisições HTTP
+- **Google OAuth API** para autenticação
 - **Day.js** para manipulação de datas
 
 ## 📋 Pré-requisitos
 
-- Java 11 ou superior
+- Java 17 ou superior
 - Node.js 14 ou superior
 - npm ou yarn
 - Conta Google para OAuth (opcional para desenvolvimento)
@@ -75,23 +77,34 @@ Para habilitar a autenticação Google em produção:
 2. Crie um novo projeto ou selecione um existente
 3. Habilite a Google+ API
 4. Crie credenciais OAuth 2.0
-5. Configure as variáveis de ambiente:
+5. Configure as variáveis de ambiente no frontend:
 
 ```bash
-export GOOGLE_CLIENT_ID=seu_client_id_aqui
-export GOOGLE_CLIENT_SECRET=seu_client_secret_aqui
+# frontend/.env
+REACT_APP_GOOGLE_CLIENT_ID=seu_client_id_aqui
+REACT_APP_GOOGLE_API_KEY=seu_api_key_aqui
 ```
 
-## 📊 Estrutura do Projeto
+## 🏗️ Arquitetura
+
+### Fluxo de Autenticação
+1. **Frontend inicia login**: Usuário clica em "Entrar com Google"
+2. **Google OAuth**: Frontend gerencia o fluxo OAuth completo
+3. **Token obtido**: Frontend recebe access token do Google
+4. **Validação**: Frontend envia token para backend validar
+5. **Autorização**: Backend valida token e autoriza requisições
+
+### Estrutura do Projeto
 
 ```
 habitscanner-app/
-├── backend/                 # Spring Boot API
+├── backend/                 # Spring Boot 3 API
 │   ├── src/main/java/
 │   │   └── com/habitscanner/habitscanner/
 │   │       ├── config/      # Configurações (Security, CORS)
 │   │       ├── controller/  # Controllers REST
 │   │       ├── dto/         # Data Transfer Objects
+│   │       ├── filter/      # Filtros de autenticação
 │   │       ├── model/       # Entidades JPA
 │   │       ├── repository/  # Repositórios
 │   │       └── service/     # Lógica de negócio
@@ -102,7 +115,7 @@ habitscanner-app/
 │   │   ├── components/      # Componentes reutilizáveis
 │   │   ├── contexts/        # Context API (Auth, Habits)
 │   │   ├── pages/           # Páginas da aplicação
-│   │   └── services/        # Serviços HTTP
+│   │   └── services/        # Serviços HTTP e OAuth
 │   └── public/
 └── README.md
 ```
@@ -127,8 +140,8 @@ habitscanner-app/
 ## 🔄 API Endpoints
 
 ### Autenticação
+- `POST /api/auth/validate` - Validar token OAuth
 - `GET /api/user` - Informações do usuário autenticado
-- `GET /oauth2/authorization/google` - Iniciar login OAuth
 
 ### Hábitos
 - `GET /api/habits` - Listar hábitos do usuário
@@ -144,7 +157,7 @@ habitscanner-app/
 ## 🚀 Deploy
 
 ### Backend
-O backend pode ser deployado em qualquer plataforma que suporte Java:
+O backend pode ser deployado em qualquer plataforma que suporte Java 17:
 - Heroku
 - AWS Elastic Beanstalk
 - Google Cloud Platform
@@ -156,6 +169,30 @@ O frontend pode ser deployado em:
 - Vercel
 - GitHub Pages
 - AWS S3 + CloudFront
+
+## 🔧 Desenvolvimento
+
+### Requisitos de Sistema
+- Java 17+
+- Node.js 14+
+- Maven 3.6+
+
+### Comandos Úteis
+
+```bash
+# Backend
+cd backend
+./mvnw clean compile    # Compilar
+./mvnw test            # Executar testes
+./mvnw spring-boot:run # Executar aplicação
+
+# Frontend
+cd frontend
+npm install            # Instalar dependências
+npm start             # Modo desenvolvimento
+npm run build         # Build para produção
+npm test              # Executar testes
+```
 
 ## 🤝 Contribuição
 
@@ -180,4 +217,16 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - React pela biblioteca frontend
 - Material-UI pelos componentes elegantes
 - Google pela API OAuth2
+
+## 📈 Versões
+
+### v2.0.0 (Atual)
+- ✅ Migração para Spring Boot 3 e Java 17
+- ✅ Fluxo OAuth gerenciado pelo frontend
+- ✅ Arquitetura moderna e segura
+- ✅ Validação de token no backend
+
+### v1.0.0
+- ✅ Versão inicial com Spring Boot 2
+- ✅ OAuth tradicional com redirecionamentos
 

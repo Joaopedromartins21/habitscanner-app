@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { signInWithGoogle, getUserInfo, revokeToken } from '../services/googleAuth';
 import axios from 'axios';
 
 const AuthContext = createContext();
@@ -14,32 +15,82 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
-    checkAuthStatus();
+    // Load Google API script
+    const script = document.createElement('script');
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+
+    // Check for existing token in localStorage
+    const savedToken = localStorage.getItem('google_access_token');
+    const savedUser = localStorage.getItem('user_info');
+    
+    if (savedToken && savedUser) {
+      setAccessToken(savedToken);
+      setUser(JSON.parse(savedUser));
+      // Set up axios default header
+      axios.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
+    }
+    
+    setLoading(false);
+
+    return () => {
+      document.head.removeChild(script);
+    };
   }, []);
 
-  const checkAuthStatus = async () => {
+  const login = async () => {
     try {
-      const response = await axios.get('/api/user', { withCredentials: true });
-      setUser(response.data);
+      setLoading(true);
+      const token = await signInWithGoogle();
+      const userInfo = await getUserInfo(token);
+      
+      // Validate token with backend
+      const response = await axios.post('/api/auth/validate', { token });
+      
+      if (response.data.valid) {
+        setAccessToken(token);
+        setUser(userInfo);
+        
+        // Save to localStorage
+        localStorage.setItem('google_access_token', token);
+        localStorage.setItem('user_info', JSON.stringify(userInfo));
+        
+        // Set up axios default header
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        
+        return true;
+      } else {
+        throw new Error('Token validation failed');
+      }
     } catch (error) {
-      console.log('User not authenticated');
-      setUser(null);
+      console.error('Login error:', error);
+      throw error;
     } finally {
       setLoading(false);
     }
   };
 
-  const login = () => {
-    window.location.href = '/oauth2/authorization/google';
-  };
-
   const logout = async () => {
     try {
-      await axios.post('/logout', {}, { withCredentials: true });
+      if (accessToken) {
+        await revokeToken(accessToken);
+      }
+      
       setUser(null);
-      window.location.href = '/login';
+      setAccessToken(null);
+      
+      // Clear localStorage
+      localStorage.removeItem('google_access_token');
+      localStorage.removeItem('user_info');
+      
+      // Clear axios default header
+      delete axios.defaults.headers.common['Authorization'];
+      
     } catch (error) {
       console.error('Logout error:', error);
     }
@@ -50,6 +101,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     loading,
+    accessToken,
   };
 
   return (

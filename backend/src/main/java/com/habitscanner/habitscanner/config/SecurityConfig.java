@@ -1,10 +1,13 @@
 package com.habitscanner.habitscanner.config;
 
+import com.habitscanner.habitscanner.filter.TokenAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -13,27 +16,24 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Autowired
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors().and()
-            .csrf().disable()
-            .authorizeRequests()
-                .antMatchers("/", "/login", "/error", "/webjars/**", "/h2-console/**").permitAll()
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/", "/login", "/error", "/webjars/**", "/h2-console/**", "/api/auth/**").permitAll()
                 .anyRequest().authenticated()
-            .and()
-            .oauth2Login()
-                .defaultSuccessUrl("http://localhost:3000/dashboard", true)
-                .failureUrl("http://localhost:3000/login?error=true")
-            .and()
-            .logout()
-                .logoutSuccessUrl("http://localhost:3000/login")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-            .and()
-            .headers().frameOptions().disable(); // For H2 console
+            )
+            .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .headers(headers -> headers.frameOptions().disable()); // For H2 console
+
+        return http.build();
     }
 
     @Bean

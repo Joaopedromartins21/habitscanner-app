@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Paper,
@@ -7,13 +7,33 @@ import {
   Box,
   Card,
   CardContent,
+  Alert,
+  CircularProgress,
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
 const LoginPage = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      await login();
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Login failed:', error);
+      setError('Falha no login. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Container maxWidth="sm" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
@@ -36,12 +56,19 @@ const LoginPage = () => {
             </Typography>
           </Box>
 
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+
           <Box textAlign="center">
             <Button
               variant="contained"
               size="large"
-              startIcon={<GoogleIcon />}
-              onClick={login}
+              startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <GoogleIcon />}
+              onClick={handleLogin}
+              disabled={loading}
               sx={{
                 py: 1.5,
                 px: 4,
@@ -50,7 +77,7 @@ const LoginPage = () => {
                 borderRadius: 2,
               }}
             >
-              Entrar com Google
+              {loading ? 'Entrando...' : 'Entrar com Google'}
             </Button>
           </Box>
 

@@ -5,8 +5,8 @@ import com.habitscanner.habitscanner.service.HabitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,24 +20,29 @@ public class HabitController {
     @Autowired
     private HabitService habitService;
     
+    private String getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null ? authentication.getName() : null;
+    }
+    
     @GetMapping
-    public ResponseEntity<List<HabitDTO>> getAllHabits(@AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<List<HabitDTO>> getAllHabits() {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         List<HabitDTO> habits = habitService.getAllHabitsByUserId(userId);
         return ResponseEntity.ok(habits);
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<HabitDTO> getHabitById(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<HabitDTO> getHabitById(@PathVariable Long id) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         Optional<HabitDTO> habit = habitService.getHabitById(id, userId);
         
         if (habit.isPresent()) {
@@ -48,12 +53,12 @@ public class HabitController {
     }
     
     @PostMapping
-    public ResponseEntity<HabitDTO> createHabit(@RequestBody HabitDTO habitDTO, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<HabitDTO> createHabit(@RequestBody HabitDTO habitDTO) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         habitDTO.setUserId(userId);
         
         HabitDTO createdHabit = habitService.createHabit(habitDTO);
@@ -61,12 +66,12 @@ public class HabitController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<HabitDTO> updateHabit(@PathVariable Long id, @RequestBody HabitDTO habitDTO, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<HabitDTO> updateHabit(@PathVariable Long id, @RequestBody HabitDTO habitDTO) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         Optional<HabitDTO> updatedHabit = habitService.updateHabit(id, habitDTO, userId);
         
         if (updatedHabit.isPresent()) {
@@ -77,12 +82,12 @@ public class HabitController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteHabit(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<Void> deleteHabit(@PathVariable Long id) {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         boolean deleted = habitService.deleteHabit(id, userId);
         
         if (deleted) {
@@ -93,12 +98,12 @@ public class HabitController {
     }
     
     @GetMapping("/count")
-    public ResponseEntity<Long> getActiveHabitsCount(@AuthenticationPrincipal OAuth2User principal) {
-        if (principal == null) {
+    public ResponseEntity<Long> getActiveHabitsCount() {
+        String userId = getCurrentUserId();
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
-        String userId = principal.getAttribute("sub");
         Long count = habitService.getActiveHabitsCount(userId);
         return ResponseEntity.ok(count);
     }

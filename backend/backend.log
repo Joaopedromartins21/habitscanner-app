@@ -6,29 +6,25 @@ nohup: ignoring input
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
-[INFO] >>> spring-boot:2.7.18:run (default-cli) > test-compile @ habitscanner >>>
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ habitscanner >>>
 [INFO] 
-[INFO] --- resources:3.2.0:resources (default-resources) @ habitscanner ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Using 'UTF-8' encoding to copy filtered properties files.
-[INFO] Copying 1 resource
-[INFO] Copying 0 resource
+[INFO] --- resources:3.3.1:resources (default-resources) @ habitscanner ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
 [INFO] 
-[INFO] --- compiler:3.10.1:compile (default-compile) @ habitscanner ---
+[INFO] --- compiler:3.11.0:compile (default-compile) @ habitscanner ---
 [INFO] Nothing to compile - all classes are up to date
 [INFO] 
-[INFO] --- resources:3.2.0:testResources (default-testResources) @ habitscanner ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ habitscanner ---
 [INFO] skip non existing resourceDirectory /home/ubuntu/habitscanner-app/backend/src/test/resources
 [INFO] 
-[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ habitscanner ---
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ habitscanner ---
 [INFO] Nothing to compile - all classes are up to date
 [INFO] 
-[INFO] <<< spring-boot:2.7.18:run (default-cli) < test-compile @ habitscanner <<<
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ habitscanner <<<
 [INFO] 
 [INFO] 
-[INFO] --- spring-boot:2.7.18:run (default-cli) @ habitscanner ---
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ habitscanner ---
 [INFO] Attaching agents: []
 
   .   ____          _            __ _ _
@@ -37,73 +33,73 @@ nohup: ignoring input
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::               (v2.7.18)
+ :: Spring Boot ::                (v3.2.0)
 
-2025-09-03 10:06:22.000  INFO 5793 --- [           main] c.h.h.HabitscannerApplication            : Starting HabitscannerApplication using Java 11.0.28 on b0001743cf33 with PID 5793 (/home/ubuntu/habitscanner-app/backend/target/classes started by ubuntu in /home/ubuntu/habitscanner-app/backend)
-2025-09-03 10:06:22.002 DEBUG 5793 --- [           main] c.h.h.HabitscannerApplication            : Running with Spring Boot v2.7.18, Spring v5.3.31
-2025-09-03 10:06:22.003  INFO 5793 --- [           main] c.h.h.HabitscannerApplication            : No active profile set, falling back to 1 default profile: "default"
-2025-09-03 10:06:22.504  INFO 5793 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-03 10:06:22.547  INFO 5793 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 2 JPA repository interfaces.
-2025-09-03 10:06:22.919  INFO 5793 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2025-09-03 10:06:22.925  INFO 5793 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-09-03 10:06:22.926  INFO 5793 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
-2025-09-03 10:06:22.989  INFO 5793 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-09-03 10:06:22.989  INFO 5793 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 953 ms
-2025-09-03 10:06:23.011  INFO 5793 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-09-03 10:06:23.087  INFO 5793 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-09-03 10:06:23.096  INFO 5793 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:habitscanner'
-2025-09-03 10:06:23.220  INFO 5793 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-03 10:06:23.243  INFO 5793 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
-2025-09-03 10:06:23.320  INFO 5793 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2025-09-03 10:06:23.374  INFO 5793 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-09-04T08:06:50.067-04:00  INFO 9422 --- [           main] c.h.h.HabitscannerApplication            : Starting HabitscannerApplication using Java 17.0.16 with PID 9422 (/home/ubuntu/habitscanner-app/backend/target/classes started by ubuntu in /home/ubuntu/habitscanner-app/backend)
+2025-09-04T08:06:50.070-04:00 DEBUG 9422 --- [           main] c.h.h.HabitscannerApplication            : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-09-04T08:06:50.071-04:00  INFO 9422 --- [           main] c.h.h.HabitscannerApplication            : No active profile set, falling back to 1 default profile: "default"
+2025-09-04T08:06:50.597-04:00  INFO 9422 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-04T08:06:50.644-04:00  INFO 9422 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+2025-09-04T08:06:51.071-04:00  INFO 9422 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-04T08:06:51.080-04:00  INFO 9422 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-04T08:06:51.080-04:00  INFO 9422 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-09-04T08:06:51.122-04:00  INFO 9422 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-04T08:06:51.123-04:00  INFO 9422 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1010 ms
+2025-09-04T08:06:51.148-04:00  INFO 9422 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-04T08:06:51.309-04:00  INFO 9422 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:habitscanner user=SA
+2025-09-04T08:06:51.311-04:00  INFO 9422 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-04T08:06:51.321-04:00  INFO 9422 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:habitscanner'
+2025-09-04T08:06:51.367-04:00 DEBUG 9422 --- [           main] c.h.h.filter.TokenAuthenticationFilter   : Filter 'tokenAuthenticationFilter' configured for use
+2025-09-04T08:06:51.423-04:00  INFO 9422 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-04T08:06:51.453-04:00  INFO 9422 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-09-04T08:06:51.475-04:00  INFO 9422 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-04T08:06:51.624-04:00  INFO 9422 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-04T08:06:51.661-04:00  WARN 9422 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-04T08:06:52.296-04:00  INFO 9422 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 Hibernate: 
-    
-    drop table if exists habit_entries CASCADE 
+    drop table if exists habit_entries cascade 
 Hibernate: 
-    
-    drop table if exists habits CASCADE 
+    drop table if exists habits cascade 
 Hibernate: 
-    
     create table habit_entries (
-       id bigint generated by default as identity,
         completed boolean not null,
-        created_at timestamp not null,
         date date not null,
-        notes varchar(500),
-        updated_at timestamp not null,
+        created_at timestamp(6) not null,
         habit_id bigint not null,
+        id bigint generated by default as identity,
+        updated_at timestamp(6) not null,
+        notes varchar(500),
         primary key (id)
     )
 Hibernate: 
-    
     create table habits (
-       id bigint generated by default as identity,
         active boolean not null,
-        created_at timestamp not null,
-        description varchar(500),
-        frequency varchar(255),
-        name varchar(255) not null,
         start_date date not null,
-        updated_at timestamp not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        updated_at timestamp(6) not null,
+        description varchar(500),
+        frequency varchar(255) check (frequency in ('DAILY','WEEKLY','MONTHLY')),
+        name varchar(255) not null,
         user_id varchar(255) not null,
         primary key (id)
     )
 Hibernate: 
-    
-    alter table habit_entries 
+    alter table if exists habit_entries 
        add constraint FKqyogm6s0qci12sn22gn7bwwuq 
        foreign key (habit_id) 
        references habits
-2025-09-03 10:06:23.770  INFO 5793 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2025-09-03 10:06:23.776  INFO 5793 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-03 10:06:23.823  WARN 5793 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-03 10:06:24.166 DEBUG 5793 --- [           main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
-2025-09-03 10:06:24.250 DEBUG 5793 --- [           main] edFilterInvocationSecurityMetadataSource : Adding web access control expression [permitAll] for Ant [pattern='/']
-2025-09-03 10:06:24.254 DEBUG 5793 --- [           main] edFilterInvocationSecurityMetadataSource : Adding web access control expression [permitAll] for Ant [pattern='/login']
-2025-09-03 10:06:24.254 DEBUG 5793 --- [           main] edFilterInvocationSecurityMetadataSource : Adding web access control expression [permitAll] for Ant [pattern='/error']
-2025-09-03 10:06:24.254 DEBUG 5793 --- [           main] edFilterInvocationSecurityMetadataSource : Adding web access control expression [permitAll] for Ant [pattern='/webjars/**']
-2025-09-03 10:06:24.254 DEBUG 5793 --- [           main] edFilterInvocationSecurityMetadataSource : Adding web access control expression [permitAll] for Ant [pattern='/h2-console/**']
-2025-09-03 10:06:24.254 DEBUG 5793 --- [           main] edFilterInvocationSecurityMetadataSource : Adding web access control expression [authenticated] for any request
-2025-09-03 10:06:24.262  INFO 5793 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@50d05167, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1da32baf, org.springframework.security.web.context.SecurityContextPersistenceFilter@5f4df55e, org.springframework.security.web.header.HeaderWriterFilter@2ab7f649, org.springframework.web.filter.CorsFilter@4e4af370, org.springframework.security.web.authentication.logout.LogoutFilter@2d3eb1ea, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@66226ab, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@38093ffe, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4af606e9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5cf33d25, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f439e0f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@23dff243, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@efa04b5, org.springframework.security.web.session.SessionManagementFilter@3093b9ff, org.springframework.security.web.access.ExceptionTranslationFilter@3d2eb7fa, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@52f7fa65]
-2025-09-03 10:06:24.506  INFO 5793 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2025-09-03 10:06:24.524  INFO 5793 --- [           main] c.h.h.HabitscannerApplication            : Started HabitscannerApplication in 2.838 seconds (JVM running for 3.093)
+2025-09-04T08:06:52.338-04:00  INFO 9422 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-04T08:06:52.582-04:00  INFO 9422 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-04T08:06:52.962-04:00  WARN 9422 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-04T08:06:52.974-04:00 DEBUG 9422 --- [           main] swordEncoderAuthenticationManagerBuilder : No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2025-09-04T08:06:53.180-04:00  INFO 9422 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2b39e77d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@201c1d99, org.springframework.security.web.context.SecurityContextHolderFilter@46ebd87a, org.springframework.security.web.header.HeaderWriterFilter@414d5660, org.springframework.web.filter.CorsFilter@36afd06f, org.springframework.security.web.authentication.logout.LogoutFilter@74061ced, com.habitscanner.habitscanner.filter.TokenAuthenticationFilter@461c3709, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@30be77cd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@71c9c7f3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18dda2e1, org.springframework.security.web.access.ExceptionTranslationFilter@3b67c637, org.springframework.security.web.access.intercept.AuthorizationFilter@29244152]
+2025-09-04T08:06:53.342-04:00  INFO 9422 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2025-09-04T08:06:53.350-04:00  INFO 9422 --- [           main] c.h.h.HabitscannerApplication            : Started HabitscannerApplication in 3.586 seconds (process running for 3.839)
+2025-09-04T08:08:16.404-04:00  INFO 9422 --- [0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-04T08:08:16.404-04:00  INFO 9422 --- [0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-04T08:08:16.406-04:00  INFO 9422 --- [0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-09-04T08:08:16.411-04:00 DEBUG 9422 --- [0.0-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/validate
+2025-09-04T08:08:16.419-04:00  WARN 9422 --- [0.0-8080-exec-1] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/auth/validate' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2025-09-04T08:08:16.426-04:00 DEBUG 9422 --- [0.0-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/validate
+2025-09-04T08:08:16.742-04:00 DEBUG 9422 --- [0.0-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
